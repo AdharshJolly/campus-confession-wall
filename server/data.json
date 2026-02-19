@@ -1,0 +1,44 @@
+{
+  "confessions": [
+    {
+      "confession_id": 1,
+      "confession_text": "I've been going to the wrong lecture hall for 3 weeks and the professor never noticed me. I think I'm getting a better education there.",
+      "confession_mood": "😅",
+      "posted_by": "Anonymous",
+      "created_at": "2024-03-15T10:23:00.000Z",
+      "heart_count": 142
+    },
+    {
+      "confession_id": 2,
+      "confession_text": "I submitted the same essay for two different classes. Both professors gave me an A. I am the curriculum now.",
+      "confession_mood": "😈",
+      "posted_by": "Anonymous",
+      "created_at": "2024-03-14T18:45:00.000Z",
+      "heart_count": 311
+    },
+    {
+      "confession_id": 3,
+      "confession_text": "The campus cat follows me home every Tuesday. I've started buying tuna for it. I think I have a pet now.",
+      "confession_mood": "🥺",
+      "posted_by": "Anonymous",
+      "created_at": "2024-03-13T09:12:00.000Z",
+      "heart_count": 489
+    },
+    {
+      "confession_id": 4,
+      "confession_text": "I've been 'working on my thesis' for 4 years. The thesis is one page. It is a poem. About my cat.",
+      "confession_mood": "💀",
+      "posted_by": "Anonymous",
+      "created_at": "2024-03-12T22:01:00.000Z",
+      "heart_count": 224
+    },
+    {
+      "confession_id": 5,
+      "confession_text": "I pretend to understand every reference my professor makes. I have never understood a single one. I nod very convincingly.",
+      "confession_mood": "😂",
+      "posted_by": "Anonymous",
+      "created_at": "2024-03-11T15:30:00.000Z",
+      "heart_count": 178
+    }
+  ]
+}
