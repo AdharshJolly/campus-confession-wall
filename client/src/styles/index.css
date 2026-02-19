@@ -281,8 +281,7 @@ body {
   margin-bottom: 18px;
   min-height: 24px;
 }
-.card-text:empty::before,
-.confession-card .card-text:not(:has(*)):empty {
+.card-text:empty::before {
   content: "[ data mismatch — key not found ]";
   color: var(--accent-rose);
   font-style: normal;

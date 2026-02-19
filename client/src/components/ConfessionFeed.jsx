@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function ConfessionFeed({ confessions, user }) {
   if (!confessions || confessions.length === 0) {
     return (
@@ -22,6 +24,8 @@ function ConfessionFeed({ confessions, user }) {
 }
 
 function ConfessionCard({ confession, user }) {
+  const [hearts, setHearts] = useState(confession.hearts ?? 0);
+
   const timeAgo = (dateStr) => {
     if (!dateStr) return "some time ago";
     const diff = Date.now() - new Date(dateStr).getTime();
@@ -29,6 +33,16 @@ function ConfessionCard({ confession, user }) {
     if (h < 1) return "just now";
     if (h < 24) return `${h}h ago`;
     return `${Math.floor(h / 24)}d ago`;
+  };
+
+  const handleHeart = async () => {
+    const res = await fetch(
+      `http://localhost:5000/api/confessions/${confession.id}/heart`,
+      { method: "POST" }
+    );
+
+    const data = await res.json();
+    setHearts(data.hearts);
   };
 
   return (
@@ -39,19 +53,19 @@ function ConfessionCard({ confession, user }) {
       </div>
 
       <span className="card-text">
-        {confession.text ?? "[ This confession failed to load — data mismatch ]"}
+        {confession.text ?? "[ failed to load ]"}
       </span>
 
       <div className="card-footer">
-        <span className="posted-by">🎭 {confession.postedBy ?? "Anonymous"}</span>
-        <div className="heart-group">
-          <div className="heart-btn" onClick={() => {}}>
-            ❤️ {confession.hearts ?? 0}
-          </div>
+        <span className="posted-by">🎭 {confession.postedBy}</span>
+
+        <div className="heart-btn" onClick={handleHeart}>
+          ❤️ {hearts}
         </div>
       </div>
     </div>
   );
 }
+
 
 export default ConfessionFeed;

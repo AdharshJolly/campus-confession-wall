@@ -58,6 +58,22 @@ app.post("/api/confessions", (req, res) => {
   res.status(201).json(newConfession);
 });
 
+app.post("/api/confessions/:id/heart", (req, res) => {
+  const data = readData();
+
+  const confession = data.confessions.find(
+    (c) => c.confession_id == req.params.id,
+  );
+
+  if (!confession) return res.status(404).json({ error: "Not found" });
+
+  confession.heart_count += 1;
+
+  writeData(data);
+
+  res.json({ hearts: confession.heart_count });
+});
+
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`🎓 Server running at http://localhost:${PORT}`);
