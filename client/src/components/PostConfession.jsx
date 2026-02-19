@@ -6,7 +6,7 @@ const MOODS = ["😅", "😈", "🥺", "💀", "😂", "😳", "🤡", "💔", "
 function PostConfession({ onPost, user }) {
   const [text, setText] = useState("");
   const [mood, setMood] = useState("😅");
-  const [status, setStatus] = useState(null); 
+  const [status, setStatus] = useState(null);
 
   const handleSubmit = async () => {
     if (!text.trim()) {
@@ -26,7 +26,8 @@ function PostConfession({ onPost, user }) {
 
   return (
     // ❌ BUG 7 — <div> instead of <form> or <section>
-    <div className="post-panel">
+    <form className="post-panel" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+
       {/* ❌ BUG 7 — <span> instead of <h2> */}
       <span className="post-title">🤫 Drop Your Confession</span>
       <p className="post-subtitle">Anonymous. Unjudged. Forever on the wall.</p>
@@ -65,14 +66,9 @@ function PostConfession({ onPost, user }) {
       </div>
 
       {/* ❌ BUG 7 — <div> instead of <button> */}
-      <div
-        className={`post-btn ${status === "posting" ? "posting" : ""}`}
-        onClick={handleSubmit}
-        role="button"
-        aria-label="Submit confession"
-      >
+      <button type="submit" className={`post-btn ${status === "posting" ? "posting" : ""}`}>
         {status === "posting" ? "Posting..." : "📌 Pin to Wall"}
-      </div>
+      </button>
 
       {status === "success" && (
         <div className="status-msg success">✅ Your confession is on the wall!</div>
@@ -80,7 +76,7 @@ function PostConfession({ onPost, user }) {
       {status === "error" && (
         <div className="status-msg error">❌ Something went wrong. Try again.</div>
       )}
-    </div>
+    </form>
   );
 }
 

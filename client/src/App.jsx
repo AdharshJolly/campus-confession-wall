@@ -6,7 +6,7 @@ const API_BASE = "http://localhost:5000/api";
 
 const currentUser = {
   name: "CampusAnon",
-  handle: "@anon_#{Math.floor(Math.random() * 9999)}",
+  handle: `@anon_${Math.floor(Math.random() * 9999)}`,
   avatar: "🎓",
   joined: "Fall 2021",
 };
@@ -31,30 +31,45 @@ function App() {
         setError("Could not connect to the confessions server.");
         setLoading(false);
       });
-  }); 
+  }, []);
 
   const handlePost = async (formData) => {
     const res = await fetch(`${API_BASE}/confessions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        
+        "x-campus-token": "dev"
       },
       body: JSON.stringify({
-        confessionText: formData.text,    
+        confessionText: formData.text,
         confessionMood: formData.mood,
         postedBy: "Anonymous",
       }),
     });
+
     if (!res.ok) throw new Error("Post failed");
-    return res.json();
+
+    const created = await res.json();
+
+    setConfessions(prev => [
+      {
+        id: created.confession_id,
+        text: created.confession_text,
+        mood: created.confession_mood,
+        postedBy: created.posted_by,
+        createdAt: created.created_at,
+        hearts: created.heart_count
+      },
+      ...prev
+    ]);
   };
 
+
   return (
-    <div className="app-root" style={{ width: "1200px" }}>
+    <div className="app-root">
       <div className="top-bar">
         <span className="brand-name">📌 Campus Confessions</span>
-        <UserAreaWrapper user={currentUser} />
+        <UserChip user={currentUser} />
       </div>
       <div className="tab-nav" role="navigation">
         <div
