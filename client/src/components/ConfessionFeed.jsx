@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function ConfessionFeed({ confessions, user }) {
   if (!confessions || confessions.length === 0) {
@@ -26,6 +26,11 @@ function ConfessionFeed({ confessions, user }) {
 function ConfessionCard({ confession, user }) {
   const [hearts, setHearts] = useState(confession.hearts ?? 0);
 
+  useEffect(() => {
+    setHearts(confession.hearts ?? 0);
+  }, [confession.hearts]);
+
+
   const timeAgo = (dateStr) => {
     if (!dateStr) return "some time ago";
     const diff = Date.now() - new Date(dateStr).getTime();
@@ -37,7 +42,7 @@ function ConfessionCard({ confession, user }) {
 
   const handleHeart = async () => {
     const res = await fetch(
-      `http://localhost:5000/api/confessions/${confession.id}/heart`,
+      `${import.meta.env.VITE_API_BASE}/confessions/${confession.id}/heart`,
       { method: "POST" }
     );
 

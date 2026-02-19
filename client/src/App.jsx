@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ConfessionFeed from "./components/ConfessionFeed";
 import PostConfession from "./components/PostConfession";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 const currentUser = {
   name: "CampusAnon",
