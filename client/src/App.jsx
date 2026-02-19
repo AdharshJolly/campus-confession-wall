@@ -34,34 +34,38 @@ function App() {
   }, []);
 
   const handlePost = async (formData) => {
-    const res = await fetch(`${API_BASE}/confessions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-campus-token": "dev"
-      },
-      body: JSON.stringify({
-        confessionText: formData.text,
-        confessionMood: formData.mood,
-        postedBy: "Anonymous",
-      }),
-    });
+    try {
+      const res = await fetch(`${API_BASE}/confessions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-campus-token": "dev"
+        },
+        body: JSON.stringify({
+          confessionText: formData.text,
+          confessionMood: formData.mood,
+          postedBy: "Anonymous",
+        }),
+      });
 
-    if (!res.ok) throw new Error("Post failed");
+      if (!res.ok) throw new Error("Post failed");
 
-    const created = await res.json();
+      const created = await res.json();
 
-    setConfessions(prev => [
-      {
-        id: created.confession_id,
-        text: created.confession_text,
-        mood: created.confession_mood,
-        postedBy: created.posted_by,
-        createdAt: created.created_at,
-        hearts: created.heart_count
-      },
-      ...prev
-    ]);
+      setConfessions(prev => [
+        {
+          id: created.confession_id,
+          text: created.confession_text,
+          mood: created.confession_mood,
+          postedBy: created.posted_by,
+          createdAt: created.created_at,
+          hearts: created.heart_count
+        },
+        ...prev
+      ]);
+    } catch (error) {
+      setError("Post failed");
+    }
   };
 
 

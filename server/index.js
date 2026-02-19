@@ -46,7 +46,7 @@ app.post("/api/confessions", (req, res) => {
   const newConfession = {
     confession_id: crypto.randomUUID(),
     confession_text: req.body.confessionText,
-    confession_mood: req.body.confessionMood,
+    confession_mood: req.body.confessionMood ?? "💬",
     posted_by: req.body.postedBy ?? "Anonymous",
     created_at: new Date().toISOString(),
     heart_count: 0,
